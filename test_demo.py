@@ -1,11 +1,12 @@
 import unittest,tempfile,sqlite3
+from contextlib import closing
 from pathlib import Path
 from demo import seed
 class DemoTest(unittest.TestCase):
  def test_seed(self):
   with tempfile.TemporaryDirectory() as d:
    path=Path(d)/'demo.sqlite3';seed(path)
-   with sqlite3.connect(path) as c:
+   with closing(sqlite3.connect(path)) as c, c:
     self.assertEqual(c.execute("select count(*) from records where kind='fish'").fetchone()[0],4)
     self.assertEqual(c.execute('select count(*) from photos').fetchone()[0],4)
  def test_demo_ui_isolation(self):

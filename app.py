@@ -1,4 +1,5 @@
 import sqlite3, json, html, secrets, hashlib, hmac, os, re, base64
+from contextlib import closing, contextmanager
 from pathlib import Path
 from http.server import ThreadingHTTPServer, BaseHTTPRequestHandler
 from urllib.parse import parse_qs, urlsplit
@@ -15,8 +16,11 @@ SCHEMA={
  'genes':('Genbibliotek','G',[('name','Lokus / anlag'),('alleles','Alleler'),('inheritance','Nedärvningsmodell'),('source','Källa'),('notes','Evidens och begränsningar')]),
  'evidence':('Genetiska profiler','GP',[('name','Individ eller grupp (ID)'),('locus','Lokus (G-ID eller namn)'),('genotype','Hypotes / genotyp'),('confidence','Status / säkerhetsgrad'),('source','Bevis / testkorsning'),('notes','Anteckningar')])}
 
+@contextmanager
 def db():
- c=sqlite3.connect(DB,timeout=10); c.row_factory=sqlite3.Row; return c
+ with closing(sqlite3.connect(DB,timeout=10)) as c, c:
+  c.row_factory=sqlite3.Row
+  yield c
 with db() as c:
  c.executescript('CREATE TABLE IF NOT EXISTS users(id INTEGER PRIMARY KEY,name TEXT UNIQUE,salt TEXT,pw TEXT); CREATE TABLE IF NOT EXISTS sessions(token TEXT PRIMARY KEY,uid INTEGER); CREATE TABLE IF NOT EXISTS records(uid INTEGER,kind TEXT,id TEXT,data TEXT,PRIMARY KEY(uid,kind,id)); CREATE TABLE IF NOT EXISTS photos(uid INTEGER,fish TEXT,id TEXT,mime TEXT,blob BLOB,PRIMARY KEY(uid,id));')
 def esc(s): return html.escape(str(s),quote=True)

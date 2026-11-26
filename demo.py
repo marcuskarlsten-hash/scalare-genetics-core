@@ -1,9 +1,10 @@
 """Synthetic, isolated example breeding data. Never touches the production database."""
 import json, sqlite3, secrets
+from contextlib import closing
 from pathlib import Path
 
 def seed(path):
-    with sqlite3.connect(path) as c:
+    with closing(sqlite3.connect(path)) as c, c:
         c.executescript('CREATE TABLE users(id INTEGER PRIMARY KEY,name TEXT UNIQUE,salt TEXT,pw TEXT); CREATE TABLE sessions(token TEXT PRIMARY KEY,uid INTEGER); CREATE TABLE records(uid INTEGER,kind TEXT,id TEXT,data TEXT,PRIMARY KEY(uid,kind,id)); CREATE TABLE photos(uid INTEGER,fish TEXT,id TEXT,mime TEXT,blob BLOB,PRIMARY KEY(uid,id));')
         c.execute('INSERT INTO users VALUES(1,?,?,?)',('Demo',secrets.token_hex(16),secrets.token_hex(32)))
         def put(kind,id,**data):

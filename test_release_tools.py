@@ -1,4 +1,5 @@
 import unittest,tempfile,sqlite3
+from contextlib import closing
 from pathlib import Path
 from release_tools import snapshot,restore,brood_probability,atomic_json
 class Release(unittest.TestCase):
@@ -11,9 +12,9 @@ class Release(unittest.TestCase):
  def test_snapshot(self):
   with tempfile.TemporaryDirectory() as d:
    a,b=Path(d)/'a',Path(d)/'b'
-   with sqlite3.connect(a) as c:c.execute('create table x(y)');c.execute('insert into x values(1)')
+   with closing(sqlite3.connect(a)) as c, c:c.execute('create table x(y)');c.execute('insert into x values(1)')
    snapshot(a,b)
-   with sqlite3.connect(b) as c:self.assertEqual(c.execute('select y from x').fetchone()[0],1)
+   with closing(sqlite3.connect(b)) as c, c:self.assertEqual(c.execute('select y from x').fetchone()[0],1)
    with self.assertRaises(ValueError):snapshot(a,a)
    with self.assertRaises(ValueError):restore(a,b)
  def test_json(self):
@@ -23,10 +24,10 @@ class Release(unittest.TestCase):
   with tempfile.TemporaryDirectory() as d:
    a,b=Path(d)/'a',Path(d)/'b'
    for p in (a,b):
-    with sqlite3.connect(p) as c:c.executescript('CREATE TABLE users(id,name,salt,pw);CREATE TABLE sessions(token,uid);CREATE TABLE records(uid,kind,id,data);CREATE TABLE photos(uid,fish,id,mime,blob);')
-   with sqlite3.connect(a) as c:c.execute("insert into users values(1,'test','x','y')")
+    with closing(sqlite3.connect(p)) as c, c:c.executescript('CREATE TABLE users(id,name,salt,pw);CREATE TABLE sessions(token,uid);CREATE TABLE records(uid,kind,id,data);CREATE TABLE photos(uid,fish,id,mime,blob);')
+   with closing(sqlite3.connect(a)) as c, c:c.execute("insert into users values(1,'test','x','y')")
    restore(a,b)
-   with sqlite3.connect(b) as c:self.assertEqual(c.execute('select name from users').fetchone()[0],'test')
+   with closing(sqlite3.connect(b)) as c, c:self.assertEqual(c.execute('select name from users').fetchone()[0],'test')
    self.assertEqual(len(list(Path(d).glob('before-restore-*.sqlite3'))),1)
  def test_integrated_uncertain(self):
   from integrated import proposals

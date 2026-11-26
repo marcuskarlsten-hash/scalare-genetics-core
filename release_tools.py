@@ -1,5 +1,6 @@
 """Local backup, portable account export and robust probability calculations."""
 import base64, json, sqlite3, os, tempfile, math
+from contextlib import closing
 from pathlib import Path
 from itertools import product
 from genetics import cross
@@ -23,7 +24,7 @@ def snapshot(source,destination):
     if not source.is_file():raise ValueError('Databas saknas.')
     fd,tmp=tempfile.mkstemp(dir=destination.parent);os.close(fd)
     try:
-        with sqlite3.connect(source) as s,sqlite3.connect(tmp) as d:
+        with closing(sqlite3.connect(source)) as s, s,closing(sqlite3.connect(tmp)) as d, d:
             s.backup(d)
             if d.execute('PRAGMA integrity_check').fetchone()[0]!='ok':raise ValueError('Databaskontroll misslyckades.')
         os.replace(tmp,destination)
@@ -33,7 +34,7 @@ def snapshot(source,destination):
 def restore(source,destination):
     source=Path(source);destination=Path(destination)
     if not source.is_file() or source.resolve()==destination.resolve():raise ValueError('Ogiltig säkerhetskopia.')
-    with sqlite3.connect(source.resolve().as_uri()+'?mode=ro',uri=True) as c:
+    with closing(sqlite3.connect(source.resolve().as_uri()+'?mode=ro',uri=True)) as c, c:
         tables={r[0] for r in c.execute("SELECT name FROM sqlite_master WHERE type='table'")}
         if not {'users','sessions','records','photos'}<=tables or c.execute('PRAGMA integrity_check').fetchone()[0]!='ok':raise ValueError('Inte en giltig Scalare-databas.')
         for table,cols in {'users':{'id','name','salt','pw'},'sessions':{'token','uid'},'records':{'uid','kind','id','data'},'photos':{'uid','fish','id','mime','blob'}}.items():
