@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   build:
@@ -62,3 +62,16 @@ jobs:
             Output/ScalareGeneticsSetup.exe
             Output/SHA256.txt
           if-no-files-found: error
+
+      - name: Publish Windows release
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $tag = 'v0.14.0'
+          $target = 'fb4872efda7955f7e9c5a22b5552a1117dc6028b'
+          $notes = 'Windowsinstallationen har verifierats med 65 automatiska tester samt ett installations- och starttest. Ladda ner ScalareGeneticsSetup.exe. Kontrollsumman finns i SHA256.txt. Installationsfilen är osignerad.'
+          gh release create $tag Output/ScalareGeneticsSetup.exe Output/SHA256.txt --target $target --title 'Scalare Genetics Core v0.14.0' --notes $notes --draft
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          gh release edit $tag --draft=false
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
