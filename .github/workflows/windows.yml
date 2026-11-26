@@ -1,0 +1,64 @@
+name: Windows installer
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: windows-2022
+    timeout-minutes: 25
+    env:
+      PYTHONUTF8: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Set temporary data directory
+        run: '"SCALARE_DATA=$env:RUNNER_TEMP\ScalareBuildData" >> $env:GITHUB_ENV'
+      - name: Install dependencies
+        run: python -m pip install -r requirements-desktop.txt
+      - name: Run tests
+        run: python -m unittest discover -v
+      - name: Package desktop app
+        run: python -m PyInstaller --noconfirm --clean --windowed --onedir --name ScalareGenetics --add-data "assets;assets" desktop.py
+      - name: Compile installer
+        shell: pwsh
+        run: |
+          $compiler = Join-Path ${env:ProgramFiles(x86)} 'Inno Setup 6\ISCC.exe'
+          if (!(Test-Path -LiteralPath $compiler)) {
+            choco install innosetup --yes --no-progress
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          }
+          & $compiler setup.iss
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Install and check startup
+        shell: pwsh
+        run: |
+          $directory = Join-Path $env:RUNNER_TEMP 'Scalare Install Test'
+          $installer = Start-Process -FilePath '.\Output\ScalareGeneticsSetup.exe' -ArgumentList "/VERYSILENT /SUPPRESSMSGBOXES /NORESTART /DIR=`"$directory`"" -Wait -PassThru
+          if ($installer.ExitCode -ne 0) { throw "Installer exited with $($installer.ExitCode)" }
+          $marker = Join-Path $env:RUNNER_TEMP 'scalare-smoke.txt'
+          $app = Start-Process -FilePath (Join-Path $directory 'ScalareGenetics.exe') -ArgumentList "--smoke-test `"$marker`"" -PassThru
+          if (!$app.WaitForExit(60000)) {
+            $app.Kill()
+            throw 'Desktop startup timed out'
+          }
+          if ($app.ExitCode -ne 0 -or !(Test-Path -LiteralPath $marker) -or (Get-Content -LiteralPath $marker -Raw) -ne 'OK') {
+            throw "Desktop startup check failed with exit code $($app.ExitCode)"
+          }
+      - name: Write checksum
+        shell: pwsh
+        run: |
+          $hash = (Get-FileHash '.\Output\ScalareGeneticsSetup.exe' -Algorithm SHA256).Hash.ToLowerInvariant()
+          "$hash  ScalareGeneticsSetup.exe" | Set-Content '.\Output\SHA256.txt' -Encoding ascii
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ScalareGenetics-Windows
+          path: |
+            Output/ScalareGeneticsSetup.exe
+            Output/SHA256.txt
+          if-no-files-found: error
