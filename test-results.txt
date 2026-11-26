@@ -1,0 +1,157 @@
+test_at_least (test_advanced_visual.AdvancedTests.test_at_least) ... ok
+test_missing (test_advanced_visual.AdvancedTests.test_missing) ... ok
+test_multi (test_advanced_visual.AdvancedTests.test_multi) ... ok
+test_reference (test_advanced_visual.AdvancedTests.test_reference) ... ok
+test_dominant (test_breeding.Breeding.test_dominant) ... ok
+test_generation (test_breeding.Breeding.test_generation) ... ok
+test_invalid (test_breeding.Breeding.test_invalid) ... ok
+test_multi (test_breeding.Breeding.test_multi) ... ok
+test_no_data (test_breeding.Breeding.test_no_data) ... ok
+test_recessive (test_breeding.Breeding.test_recessive) ... ok
+test_cross (test_core.Genetics.test_cross) ... ok
+test_invalid (test_core.Genetics.test_invalid) ... ok
+test_posterior (test_core.Genetics.test_posterior) ... ok
+test_recessive (test_core.Genetics.test_recessive) ... ok
+test_workflow (test_core.Web.test_workflow) ... ok
+test_demo_ui_isolation (test_demo.DemoTest.test_demo_ui_isolation) ... ok
+test_seed (test_demo.DemoTest.test_seed) ... ok
+test_window_and_navigation (test_desktop.DesktopSmoke.test_window_and_navigation) ... ok
+test_carrier (test_evidence_engine.EvidenceTests.test_carrier) ... ok
+test_multiple (test_evidence_engine.EvidenceTests.test_multiple) ... ok
+test_wrong_allele (test_evidence_engine.EvidenceTests.test_wrong_allele) ... ok
+test_custom (test_future.FutureTests.test_custom) ... ok
+test_f2 (test_future.FutureTests.test_f2) ... ok
+test_invalid (test_future.FutureTests.test_invalid) ... ok
+test_two_loci (test_future.FutureTests.test_two_loci) ... ok
+test_unknown (test_future.FutureTests.test_unknown) ... ok
+test_ancestry (test_integrated.Integration.test_ancestry) ... ok
+test_chance (test_integrated.Integration.test_chance) ... ok
+test_conflict (test_integrated.Integration.test_conflict) ... ok
+test_missing (test_integrated.Integration.test_missing) ... ok
+test_plan (test_integrated.Integration.test_plan) ... ok
+test_uncertain_siblings (test_integrated.Integration.test_uncertain_siblings) ... ok
+test_ancestry (test_intelligence.Intelligence.test_ancestry) ... ok
+test_canonical (test_intelligence.Intelligence.test_canonical) ... ok
+test_invalid (test_intelligence.Intelligence.test_invalid) ... ok
+test_mixture (test_intelligence.Intelligence.test_mixture) ... ok
+test_rank (test_intelligence.Intelligence.test_rank) ... ok
+test_bounds (test_pathway.Pathway.test_bounds) ... ok
+test_fixed (test_pathway.Pathway.test_fixed) ... ok
+test_missing (test_pathway.Pathway.test_missing) ... ok
+test_one_fish (test_pathway.Pathway.test_one_fish) ... ok
+test_pedigree_cycle (test_pathway.Pathway.test_pedigree_cycle) ... ok
+test_two_loci (test_pathway.Pathway.test_two_loci) ... /mnt/data/scalare-windows-build/pathway.py:20: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x7f71409e96c0>
+  def score(g):return sum(sum(min(x.count(z),y.count(z)) for z in set(y))/2 for x,y in zip((s.split('/') for s in g),(s.split('/') for s in T)))/len(T)
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/mnt/data/scalare-windows-build/pathway.py:20: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x7f713fce84f0>
+  def score(g):return sum(sum(min(x.count(z),y.count(z)) for z in set(y))/2 for x,y in zip((s.split('/') for s in g),(s.split('/') for s in T)))/len(T)
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/mnt/data/scalare-windows-build/pathway.py:20: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x7f713fce89a0>
+  def score(g):return sum(sum(min(x.count(z),y.count(z)) for z in set(y))/2 for x,y in zip((s.split('/') for s in g),(s.split('/') for s in T)))/len(T)
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/mnt/data/scalare-windows-build/pathway.py:20: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x7f713fce93f0>
+  def score(g):return sum(sum(min(x.count(z),y.count(z)) for z in set(y))/2 for x,y in zip((s.split('/') for s in g),(s.split('/') for s in T)))/len(T)
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/mnt/data/scalare-windows-build/pathway.py:20: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x7f713fce9e40>
+  def score(g):return sum(sum(min(x.count(z),y.count(z)) for z in set(y))/2 for x,y in zip((s.split('/') for s in g),(s.split('/') for s in T)))/len(T)
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/mnt/data/scalare-windows-build/pathway.py:20: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x7f713fce9f30>
+  def score(g):return sum(sum(min(x.count(z),y.count(z)) for z in set(y))/2 for x,y in zip((s.split('/') for s in g),(s.split('/') for s in T)))/len(T)
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/mnt/data/scalare-windows-build/pathway.py:20: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x7f713fce87c0>
+  def score(g):return sum(sum(min(x.count(z),y.count(z)) for z in set(y))/2 for x,y in zip((s.split('/') for s in g),(s.split('/') for s in T)))/len(T)
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/mnt/data/scalare-windows-build/pathway.py:20: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x7f713fce85e0>
+  def score(g):return sum(sum(min(x.count(z),y.count(z)) for z in set(y))/2 for x,y in zip((s.split('/') for s in g),(s.split('/') for s in T)))/len(T)
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/mnt/data/scalare-windows-build/pathway.py:20: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x7f713fcea020>
+  def score(g):return sum(sum(min(x.count(z),y.count(z)) for z in set(y))/2 for x,y in zip((s.split('/') for s in g),(s.split('/') for s in T)))/len(T)
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/mnt/data/scalare-windows-build/pathway.py:20: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x7f713fcea2f0>
+  def score(g):return sum(sum(min(x.count(z),y.count(z)) for z in set(y))/2 for x,y in zip((s.split('/') for s in g),(s.split('/') for s in T)))/len(T)
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/mnt/data/scalare-windows-build/pathway.py:20: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x7f713fcea200>
+  def score(g):return sum(sum(min(x.count(z),y.count(z)) for z in set(y))/2 for x,y in zip((s.split('/') for s in g),(s.split('/') for s in T)))/len(T)
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/mnt/data/scalare-windows-build/pathway.py:20: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x7f713fce86d0>
+  def score(g):return sum(sum(min(x.count(z),y.count(z)) for z in set(y))/2 for x,y in zip((s.split('/') for s in g),(s.split('/') for s in T)))/len(T)
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_blue (test_phenotype_preview.PreviewTests.test_blue) ... /mnt/data/scalare-windows-build/phenotype_preview.py:14: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+  for r,g,b in im.getdata():
+ok
+test_bounds (test_phenotype_preview.PreviewTests.test_bounds) ... ok
+test_eye (test_phenotype_preview.PreviewTests.test_eye) ... /mnt/data/scalare-windows-build/phenotype_preview.py:29: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+  pixels=[p for p in im.crop(box).getdata() if min(p)<220 and max(p)>35]
+ok
+test_unknown (test_phenotype_preview.PreviewTests.test_unknown) ... ok
+test_parent (test_planning.Planning.test_parent) ... ok
+test_sex (test_planning.Planning.test_sex) ... ok
+test_siblings (test_planning.Planning.test_siblings) ... ok
+test_targets (test_planning.Planning.test_targets) ... ok
+test_unknown (test_planning.Planning.test_unknown) ... ok
+test_fixed (test_release_tools.Release.test_fixed) ... ok
+test_integrated_uncertain (test_release_tools.Release.test_integrated_uncertain) ... ok
+test_json (test_release_tools.Release.test_json) ... ok
+test_shared_uncertainty (test_release_tools.Release.test_shared_uncertainty) ... ok
+test_snapshot (test_release_tools.Release.test_snapshot) ... ok
+test_valid_restore (test_release_tools.Release.test_valid_restore) ... ok
+test_ancestry (test_visual.VisualTests.test_ancestry) ... ok
+test_background (test_visual.VisualTests.test_background) ... /mnt/data/scalare-windows-build/visual.py:16: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+  pixels=list(im.getdata())
+/mnt/data/scalare-windows-build/visual.py:16: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x7f713fcea2f0>
+  pixels=list(im.getdata())
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/mnt/data/scalare-windows-build/visual.py:16: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x7f713fd49120>
+  pixels=list(im.getdata())
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/mnt/data/scalare-windows-build/visual.py:16: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x7f713fd49210>
+  pixels=list(im.getdata())
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/mnt/data/scalare-windows-build/visual.py:16: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x7f713fd49b70>
+  pixels=list(im.getdata())
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/mnt/data/scalare-windows-build/visual.py:16: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x7f713fd4a020>
+  pixels=list(im.getdata())
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/mnt/data/scalare-windows-build/visual.py:16: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x7f713fd4a200>
+  pixels=list(im.getdata())
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/mnt/data/scalare-windows-build/visual.py:16: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x7f713fd4a890>
+  pixels=list(im.getdata())
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/mnt/data/scalare-windows-build/visual.py:16: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x7f713fd4a980>
+  pixels=list(im.getdata())
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/mnt/data/scalare-windows-build/visual.py:16: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x7f713fd4aa70>
+  pixels=list(im.getdata())
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/mnt/data/scalare-windows-build/visual.py:16: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x7f713fd4ab60>
+  pixels=list(im.getdata())
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/mnt/data/scalare-windows-build/visual.py:16: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x7f713fd4ac50>
+  pixels=list(im.getdata())
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/mnt/data/scalare-windows-build/visual.py:16: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x7f713fd4ad40>
+  pixels=list(im.getdata())
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/mnt/data/scalare-windows-build/visual.py:16: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x7f713fd4ae30>
+  pixels=list(im.getdata())
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/mnt/data/scalare-windows-build/visual.py:16: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x7f713fd4af20>
+  pixels=list(im.getdata())
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/mnt/data/scalare-windows-build/visual.py:16: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x7f713fd4b010>
+  pixels=list(im.getdata())
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_dark (test_visual.VisualTests.test_dark) ... ok
+test_mixture (test_visual.VisualTests.test_mixture) ... ok
+test_other_allele (test_visual.VisualTests.test_other_allele) ... ok
+test_pixels (test_visual.VisualTests.test_pixels) ... ok
+test_unknown (test_visual.VisualTests.test_unknown) ... ok
+
+----------------------------------------------------------------------
+Ran 65 tests in 1.861s
+
+OK
