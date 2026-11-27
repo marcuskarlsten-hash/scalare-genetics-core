@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   build:
@@ -80,3 +80,16 @@ jobs:
             Output/ScalareGenetics-Portable.zip
             Output/SHA256.txt
           if-no-files-found: error
+
+      - name: Publish Windows release
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $tag = 'v0.14.1'
+          $target = 'fab239e13737dae6e4b13d5cc6da2ae004af7e59'
+          $notes = 'Windowsversion med installationsfil och portabel ZIP. För portabel start, extrahera ZIP-filen och öppna ScalareGenetics.exe i den uppackade mappen. Programmet visar nu ett felmeddelande om den lokala databasen inte kan öppnas vid start. Båda paketen är osignerade.'
+          gh release create $tag Output/ScalareGeneticsSetup.exe Output/ScalareGenetics-Portable.zip Output/SHA256.txt --target $target --title 'Scalare Genetics Core v0.14.1' --notes $notes --draft
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          gh release edit $tag --draft=false
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
