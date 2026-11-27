@@ -50,15 +50,33 @@ jobs:
           if ($app.ExitCode -ne 0 -or !(Test-Path -LiteralPath $marker) -or (Get-Content -LiteralPath $marker -Raw) -ne 'OK') {
             throw "Desktop startup check failed with exit code $($app.ExitCode)"
           }
-      - name: Write checksum
+      - name: Package and check portable ZIP
+        shell: pwsh
+        run: |
+          $zip = 'Output/ScalareGenetics-Portable.zip'
+          Compress-Archive -Path 'dist/ScalareGenetics' -DestinationPath $zip
+          $folder = Join-Path $env:RUNNER_TEMP 'Scalare Portable Test'
+          Expand-Archive -LiteralPath $zip -DestinationPath $folder
+          $marker = Join-Path $folder 'startup.txt'
+          $app = Start-Process -FilePath (Join-Path $folder 'ScalareGenetics/ScalareGenetics.exe') -ArgumentList "--smoke-test `"$marker`"" -PassThru
+          if (!$app.WaitForExit(60000)) {
+            $app.Kill()
+            throw 'Portable desktop startup timed out'
+          }
+          if ($app.ExitCode -ne 0 -or !(Test-Path -LiteralPath $marker) -or (Get-Content -LiteralPath $marker -Raw) -ne 'OK') {
+            throw "Portable desktop startup check failed with exit code $($app.ExitCode)"
+          }
+      - name: Write checksums
         shell: pwsh
         run: |
           $hash = (Get-FileHash '.\Output\ScalareGeneticsSetup.exe' -Algorithm SHA256).Hash.ToLowerInvariant()
-          "$hash  ScalareGeneticsSetup.exe" | Set-Content '.\Output\SHA256.txt' -Encoding ascii
+          $portableHash = (Get-FileHash './Output/ScalareGenetics-Portable.zip' -Algorithm SHA256).Hash.ToLowerInvariant()
+          @("$hash  ScalareGeneticsSetup.exe", "$portableHash  ScalareGenetics-Portable.zip") | Set-Content '.\Output\SHA256.txt' -Encoding ascii
       - uses: actions/upload-artifact@v4
         with:
           name: ScalareGenetics-Windows
           path: |
             Output/ScalareGeneticsSetup.exe
+            Output/ScalareGenetics-Portable.zip
             Output/SHA256.txt
           if-no-files-found: error

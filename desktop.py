@@ -3,20 +3,31 @@ from pathlib import Path
 import tkinter as tk
 from tkinter import ttk, filedialog, messagebox, simpledialog
 os.environ.setdefault('SCALARE_DATA',str(Path(os.getenv('LOCALAPPDATA',str(Path.home()/'.local/share')))/'ScalareGenetics'))
-import app as core
+try:
+ import app as core
+except (OSError, sqlite3.Error) as error:
+ if __name__ != '__main__' or '--smoke-test' in sys.argv:
+  raise
+ root = tk.Tk()
+ root.withdraw()
+ try:
+  messagebox.showerror('Scalare Genetics kunde inte starta', f'Kontrollera att programmets datamapp går att öppna.\n\n{os.environ["SCALARE_DATA"]}\n\n{error}', parent=root)
+ finally:
+  root.destroy()
+ raise SystemExit(1) from error
 from genetics import cross
 from breeding import test_cross, multi_cross, generation
 
 class Desktop(tk.Tk):
  def __init__(self):
-  super().__init__(); self.title('Scalare Genetics Core 0.14.0'); self.geometry('1120x760'); self.minsize(800,550); self.uid=None; self.demo_tmp=None; self.real_db=core.DB
+  super().__init__(); self.title('Scalare Genetics Core 0.14.1'); self.geometry('1120x760'); self.minsize(800,550); self.uid=None; self.demo_tmp=None; self.real_db=core.DB
   self.style=ttk.Style(self); self.style.theme_use('clam'); self.style.configure('TButton',padding=7); self.style.configure('Title.TLabel',font=('Segoe UI',20,'bold')); self.login()
  def clear(self):
   for w in self.winfo_children(): w.destroy()
  def login(self):
   if self.demo_tmp is not None:
    core.DB=self.real_db; self.demo_tmp.cleanup(); self.demo_tmp=None
-  self.title('Scalare Genetics Core 0.14.0')
+  self.title('Scalare Genetics Core 0.14.1')
   self.clear(); self.uid=None; f=ttk.Frame(self,padding=40); f.pack(expand=True); ttk.Label(f,text='Scalare Genetics Core',style='Title.TLabel').pack(pady=15)
   ttk.Label(f,text='Lokalt användarkonto').pack(); name=ttk.Entry(f,width=35); name.pack(pady=6); ttk.Label(f,text='Lösenord').pack(); pw=ttk.Entry(f,show='•',width=35); pw.pack(pady=6)
   def auth(create=False):

@@ -1,6 +1,6 @@
 [Setup]
 AppName=Scalare Genetics Core
-AppVersion=0.14.0
+AppVersion=0.14.1
 DefaultDirName={localappdata}\Programs\ScalareGenetics
 DefaultGroupName=Scalare Genetics
 PrivilegesRequired=lowest
